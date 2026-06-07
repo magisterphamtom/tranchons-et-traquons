@@ -1,0 +1,122 @@
+[
+  {
+    "_id":"mon001","name":"Sangrelin (Petit bras)","type":"pnj",
+    "img":"icons/creatures/humanoids/goblin-horned-fangs-green.webp",
+    "system":{
+      "biographie":{"peuple":"sangrelin","type_monstre":"Humanoïde","description":"Petit bras agités et dangereux en nombre. Esclaves rebelles des nains."},
+      "traits":{"combat":{"valeur":1},"robustesse":{"valeur":1}},
+      "sante":{"pv":{"value":1,"min":0,"max":1}},
+      "combat_stats":{"armure":0,"degats":1,"difficulte":0}
+    }
+  },
+  {
+    "_id":"mon002","name":"Brigand (Gros bras)","type":"pnj",
+    "img":"icons/creatures/humanoids/humanoid-shadow-dark.webp",
+    "system":{
+      "biographie":{"peuple":"humain","type_monstre":"Humanoïde","description":"Détrousseur expérimenté. Difficile à intimider."},
+      "traits":{"combat":{"valeur":2},"robustesse":{"valeur":2}},
+      "sante":{"pv":{"value":5,"min":0,"max":5}},
+      "combat_stats":{"armure":0,"degats":1,"difficulte":-2}
+    }
+  },
+  {
+    "_id":"mon003","name":"Soldat (Gros bras)","type":"pnj",
+    "img":"icons/creatures/humanoids/knight-purple.webp",
+    "system":{
+      "biographie":{"peuple":"humain","type_monstre":"Humanoïde","description":"Soldat régulier avec armure légère. Don Armure (1)."},
+      "traits":{"combat":{"valeur":2},"robustesse":{"valeur":2}},
+      "sante":{"pv":{"value":5,"min":0,"max":5}},
+      "combat_stats":{"armure":1,"degats":1,"difficulte":-2}
+    }
+  },
+  {
+    "_id":"mon004","name":"Troll (Brutasse)","type":"pnj",
+    "img":"icons/creatures/mammals/wolf-shadow-black.webp",
+    "system":{
+      "biographie":{"peuple":"humain","type_monstre":"Monstre","description":"Le soleil le transforme en pierre. Régénère 1 PV/round. Difficile à tuer sans lumière ou feu."},
+      "traits":{"combat":{"valeur":3},"robustesse":{"valeur":3}},
+      "sante":{"pv":{"value":10,"min":0,"max":10}},
+      "combat_stats":{"armure":0,"degats":2,"difficulte":-4}
+    }
+  },
+  {
+    "_id":"mon005","name":"Golem (Brutasse)","type":"pnj",
+    "img":"icons/creatures/magical/construct-iron-stomping.webp",
+    "system":{
+      "biographie":{"peuple":"marionnette","type_monstre":"Construit","description":"Armure (3). Immunisé aux armes normales. Don Brutal."},
+      "traits":{"combat":{"valeur":3},"robustesse":{"valeur":4}},
+      "sante":{"pv":{"value":10,"min":0,"max":10}},
+      "combat_stats":{"armure":3,"degats":2,"difficulte":-4}
+    }
+  },
+  {
+    "_id":"mon006","name":"Sorcier inquiétant (Brutasse)","type":"pnj",
+    "img":"icons/magic/symbols/rune-sigil-black-purple.webp",
+    "system":{
+      "biographie":{"peuple":"humain","type_monstre":"Humanoïde","description":"Ne se déplace jamais sans garde du corps. Dons Dominer et Soigner."},
+      "traits":{"combat":{"valeur":2},"robustesse":{"valeur":2}},
+      "sante":{"pv":{"value":10,"min":0,"max":10}},
+      "combat_stats":{"armure":0,"degats":2,"difficulte":-4}
+    }
+  },
+  {
+    "_id":"mon007","name":"Dragon (Grand chef)","type":"pnj",
+    "img":"icons/creatures/reptiles/serpent-horned-green.webp",
+    "system":{
+      "biographie":{"peuple":"drakken","type_monstre":"Monstre","description":"Immunité aux armes normales et au feu. Terrifiant. Armure (3). Dégâts de souffle = 3."},
+      "traits":{"combat":{"valeur":5},"robustesse":{"valeur":5}},
+      "sante":{"pv":{"value":15,"min":0,"max":15}},
+      "combat_stats":{"armure":3,"degats":3,"difficulte":-6}
+    }
+  },
+  {
+    "_id":"mon008","name":"Grand chef nécromancien","type":"pnj",
+    "img":"icons/magic/death/skull-horned-worn-brown.webp",
+    "system":{
+      "biographie":{"peuple":"humain","type_monstre":"Humanoïde","description":"Maîtrise des morts-vivants. Dons Dominer, Soigner, Fuite. Armure magique (2)."},
+      "traits":{"combat":{"valeur":3},"robustesse":{"valeur":3}},
+      "sante":{"pv":{"value":15,"min":0,"max":15}},
+      "combat_stats":{"armure":2,"degats":3,"difficulte":-6}
+    }
+  },
+  {
+    "_id":"mon009","name":"Loup (Prédateur)","type":"pnj",
+    "img":"icons/creatures/mammals/wolf-running-white.webp",
+    "system":{
+      "biographie":{"peuple":"wolfen","type_monstre":"Animal","description":"Prédateur en meute. Don Morsure (perd 1 PV/round une fois mordu)."},
+      "traits":{"combat":{"valeur":2},"robustesse":{"valeur":1}},
+      "sante":{"pv":{"value":5,"min":0,"max":5}},
+      "combat_stats":{"armure":0,"degats":1,"difficulte":-2}
+    }
+  },
+  {
+    "_id":"mon010","name":"Serpent venimeux","type":"pnj",
+    "img":"icons/creatures/reptiles/serpent-coiled-blue.webp",
+    "system":{
+      "biographie":{"peuple":"humain","type_monstre":"Animal","description":"Don Poison. Les blessures ne guérissent pas sans magie."},
+      "traits":{"combat":{"valeur":1},"robustesse":{"valeur":1}},
+      "sante":{"pv":{"value":1,"min":0,"max":1}},
+      "combat_stats":{"armure":0,"degats":1,"difficulte":0}
+    }
+  },
+  {
+    "_id":"mon011","name":"Mort-vivant guerrier","type":"pnj",
+    "img":"icons/creatures/undead/skeleton-armored-sword-shield.webp",
+    "system":{
+      "biographie":{"peuple":"humain","type_monstre":"Mort-vivant","description":"Immunisé aux armes normales. Sensible au feu et à la magie. Don Armure (1)."},
+      "traits":{"combat":{"valeur":2},"robustesse":{"valeur":2}},
+      "sante":{"pv":{"value":5,"min":0,"max":5}},
+      "combat_stats":{"armure":1,"degats":1,"difficulte":-2}
+    }
+  },
+  {
+    "_id":"mon012","name":"Démon mineur","type":"pnj",
+    "img":"icons/creatures/magical/demon-horned-flying.webp",
+    "system":{
+      "biographie":{"peuple":"humain","type_monstre":"Surnaturel","description":"Être d'un autre plan. Don Dominer. Vulnérable à Par l'Unique ! des Templiers."},
+      "traits":{"combat":{"valeur":3},"robustesse":{"valeur":2}},
+      "sante":{"pv":{"value":10,"min":0,"max":10}},
+      "combat_stats":{"armure":0,"degats":2,"difficulte":-4}
+    }
+  }
+]

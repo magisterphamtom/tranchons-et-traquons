@@ -1,0 +1,23 @@
+<div class="tnt-roll-card {{#if succes}}succes{{else}}echec{{/if}}">
+  <div class="roll-header">
+    <span class="actor-name">{{actorName}}</span>
+    <span class="trait-name">— {{traitLabel}}</span>
+  </div>
+  <div class="roll-dice">
+    {{#each dice as |d|}}
+      <span class="die die-{{d}} {{#if (eq d 6)}}max{{/if}} {{#if (eq d 1)}}min{{/if}}">{{d}}</span>
+    {{/each}}
+    {{#if bonus}}
+      <span class="bonus">+ {{bonus}}</span>
+    {{/if}}
+  </div>
+  <div class="roll-result">
+    <span class="total">{{total}}</span>
+    <span class="vs">vs {{seuil}}</span>
+    {{#if succes}}
+      <span class="verdict succes-label">✔ Succès{{#if (gte marge 4)}} éclatant !{{/if}}</span>
+    {{else}}
+      <span class="verdict echec-label">✘ Échec{{#if (lte marge -4)}} critique !{{/if}}</span>
+    {{/if}}
+  </div>
+</div>

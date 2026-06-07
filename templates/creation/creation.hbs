@@ -1,0 +1,198 @@
+<div class="tnt-creation">
+
+  <!-- Navigation étapes -->
+  <div class="creation-steps">
+    <button class="step-btn {{#if (eq etape 1)}}active{{/if}}" data-etape="1">1. Peuple</button>
+    <button class="step-btn {{#if (eq etape 2)}}active{{/if}}" data-etape="2">2. Classe</button>
+    <button class="step-btn {{#if (eq etape 3)}}active{{/if}}" data-etape="3">3. Traits</button>
+    <button class="step-btn {{#if (eq etape 4)}}active{{/if}}" data-etape="4">4. Détails</button>
+    <button class="step-btn {{#if (eq etape 5)}}active{{/if}}" data-etape="5">5. Récap</button>
+  </div>
+
+  <!-- ══ ÉTAPE 1 : PEUPLE ══════════════════════════ -->
+  {{#if (eq etape 1)}}
+  <div class="creation-body">
+    <h2 class="creation-titre">🧬 Choisissez votre peuple</h2>
+    <div class="peuple-grid">
+      {{#each peuples as |p key|}}
+      <div class="peuple-carte {{#if (eq key ../data.peuple)}}selected{{/if}}"
+           data-key="peuple" data-value="{{key}}">
+        <div class="peuple-nom">{{p.label}}</div>
+        <div class="peuple-don">🎁 {{p.don}}</div>
+        <div class="peuple-destin">💠 {{p.destin}}</div>
+      </div>
+      {{/each}}
+    </div>
+    <div class="creation-nav">
+      <button class="btn-suivant" data-etape="2">Suivant →</button>
+    </div>
+  </div>
+  {{/if}}
+
+  <!-- ══ ÉTAPE 2 : CLASSE ══════════════════════════ -->
+  {{#if (eq etape 2)}}
+  <div class="creation-body">
+    <h2 class="creation-titre">🎭 Choisissez votre classe</h2>
+    <div class="classe-grid">
+      {{#each classes as |c key|}}
+      <div class="classe-carte {{#if (eq key ../data.classe)}}selected{{/if}}"
+           data-key="classe" data-value="{{key}}">
+        <div class="classe-nom">{{c.label}}</div>
+        <div class="classe-trait">Trait clé : <strong>{{c.traitCle}}</strong></div>
+        <div class="classe-aussi">{{c.aussi}}</div>
+      </div>
+      {{/each}}
+    </div>
+    <div class="creation-nav">
+      <button class="btn-suivant" data-etape="1">← Précédent</button>
+      <button class="btn-suivant" data-etape="3">Suivant →</button>
+    </div>
+  </div>
+  {{/if}}
+
+  <!-- ══ ÉTAPE 3 : TRAITS ══════════════════════════ -->
+  {{#if (eq etape 3)}}
+  <div class="creation-body">
+    <h2 class="creation-titre">⚔ Folle Jeunesse — Tirez vos traits</h2>
+    <p class="creation-intro">Lancez 4 fois 1D6 pour déterminer votre passé, puis répartissez 5 points libres.</p>
+
+    <!-- Tables de jeunesse -->
+    <div class="tables-jeunesse">
+      {{#each tables as |table key|}}
+      {{#with (lookup ../jeunesseAffichage key) as |res|}}
+      <div class="table-row {{#if res.done}}done{{/if}}">
+        <span class="table-label">{{table.label}}</span>
+        {{#if res.done}}
+          <span class="table-result">[{{res.de}}] {{res.texte}}</span>
+        {{else}}
+          <button class="btn-roll-table" data-roll-table="{{key}}">🎲 Lancer</button>
+        {{/if}}
+      </div>
+      {{/with}}
+      {{/each}}
+    </div>
+
+    <!-- Traits avec +/- -->
+    <div class="traits-creation">
+      <div class="points-libres">Points libres : <strong>{{data.pointsLibres}}</strong>
+        {{#if data.choixLibres}} · Choix libres : <strong>{{data.choixLibres}}</strong>{{/if}}
+      </div>
+      {{#each traits as |t key|}}
+      <div class="trait-creation-row">
+        <span class="trait-creation-icon"><i class="{{t.icon}}"></i></span>
+        <span class="trait-creation-label">{{t.label}}</span>
+        <div class="trait-creation-controls">
+          <button class="btn-trait-ctrl" data-trait-moins="{{key}}">−</button>
+          <span class="trait-creation-val">{{lookup ../data.traits key}}</span>
+          <button class="btn-trait-ctrl" data-trait-plus="{{key}}">+</button>
+        </div>
+        {{#if ../data.choixLibres}}
+        <button class="btn-choix-libre" data-choix-trait="{{key}}" title="Utiliser un choix libre">★</button>
+        {{/if}}
+      </div>
+      {{/each}}
+      <div class="traits-total">Total : <strong>{{totalTraits}}</strong> / 20 · PV : <strong>{{pvMax}}</strong></div>
+    </div>
+
+    <div class="creation-nav">
+      <button class="btn-suivant" data-etape="2">← Précédent</button>
+      <button class="btn-suivant" data-etape="4">Suivant →</button>
+    </div>
+  </div>
+  {{/if}}
+
+  <!-- ══ ÉTAPE 4 : DÉTAILS ══════════════════════════ -->
+  {{#if (eq etape 4)}}
+  <div class="creation-body">
+    <h2 class="creation-titre">📋 Derniers détails</h2>
+
+    <div class="details-form">
+      <div class="detail-field">
+        <label>Nom de l'aventurier</label>
+        <input type="text" data-key="nom" value="{{data.nom}}" placeholder="Ex : Walraaf le Templier..." />
+      </div>
+      <div class="detail-row">
+        <div class="detail-field">
+          <label>Âge</label>
+          <input type="text" data-key="age" value="{{data.age}}" placeholder="25 ans..." />
+        </div>
+        <div class="detail-field">
+          <label>Signe astrologique</label>
+          <select data-key="signe">
+            <option value="">— Choisir —</option>
+            {{#each signes as |label key|}}
+            <option value="{{key}}" {{#if (eq key ../data.signe)}}selected{{/if}}>{{label}}</option>
+            {{/each}}
+          </select>
+        </div>
+      </div>
+      <div class="detail-field">
+        <label>⚡ Réflexe <small>(action automatique)</small></label>
+        <input type="text" data-key="reflexe" value="{{data.reflexe}}"
+               placeholder="Ex : Je surveille toujours les arrières..." />
+      </div>
+      <div class="detail-row">
+        <div class="detail-field">
+          <label>⭐ Avantage de départ</label>
+          <input type="text" data-key="avantageNom" value="{{data.avantageNom}}"
+                 placeholder="Ex : Mon cheval Tonnerre..." />
+        </div>
+        <div class="detail-field small">
+          <label>Score (= Influence)</label>
+          <input type="number" data-key="avantageScore"
+                 value="{{data.avantageScore}}" min="1" max="5" />
+        </div>
+      </div>
+      <div class="detail-field">
+        <label>💀 Faiblesse de classe <small>(laissez vide pour la faiblesse par défaut)</small></label>
+        <input type="text" data-key="faiblesseNom" value="{{data.faiblesseNom}}"
+               placeholder="Ou laissez vide pour la faiblesse de {{data.classe}}..." />
+      </div>
+    </div>
+
+    <div class="creation-nav">
+      <button class="btn-suivant" data-etape="3">← Précédent</button>
+      <button class="btn-suivant" data-etape="5">Récapitulatif →</button>
+    </div>
+  </div>
+  {{/if}}
+
+  <!-- ══ ÉTAPE 5 : RÉCAPITULATIF ═══════════════════ -->
+  {{#if (eq etape 5)}}
+  <div class="creation-body">
+    <h2 class="creation-titre">🏆 Récapitulatif</h2>
+    <div class="recap-grid">
+      <div class="recap-section">
+        <div class="recap-titre">Identité</div>
+        <div class="recap-ligne"><span>Nom</span><strong>{{data.nom}}</strong></div>
+        <div class="recap-ligne"><span>Peuple</span><strong>{{peupleLabel}}</strong></div>
+        <div class="recap-ligne"><span>Classe</span><strong>{{classeLabel}}</strong></div>
+        {{#if data.signe}}<div class="recap-ligne"><span>Signe</span><strong>{{data.signe}}</strong></div>{{/if}}
+        {{#if data.age}}<div class="recap-ligne"><span>Âge</span><strong>{{data.age}}</strong></div>{{/if}}
+      </div>
+      <div class="recap-section">
+        <div class="recap-titre">Traits ({{totalTraits}}/20)</div>
+        {{#each traits as |t key|}}
+        <div class="recap-ligne trait-{{key}}">
+          <span>{{t.label}}</span>
+          <strong>{{lookup ../data.traits key}}</strong>
+        </div>
+        {{/each}}
+        <div class="recap-ligne pv"><span>Points de vie</span><strong>{{pvMax}}</strong></div>
+      </div>
+    </div>
+    {{#if data.reflexe}}
+    <div class="recap-reflexe">⚡ <em>«{{data.reflexe}}»</em></div>
+    {{/if}}
+    {{#if data.avantageNom}}
+    <div class="recap-avantage">⭐ {{data.avantageNom}} (score {{data.avantageScore}})</div>
+    {{/if}}
+
+    <div class="creation-nav">
+      <button class="btn-suivant" data-etape="4">← Précédent</button>
+      <button class="btn-creer" data-action="creer">⚔ Créer cet aventurier !</button>
+    </div>
+  </div>
+  {{/if}}
+
+</div>

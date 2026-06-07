@@ -1,0 +1,345 @@
+<div class="tnt-sheet aventurier">
+
+  <!-- ══ EN-TÊTE ══════════════════════════════════════ -->
+  <header class="sheet-header">
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="Changer le portrait" />
+    <div class="header-fields">
+      <div class="header-row">
+        <input class="actor-name" type="text" name="name" value="{{actor.name}}" />
+        <div class="classe-badge">
+          <select data-field="system.biographie.classe">
+            {{selectOptions classeChoices selected=bio.classe}}
+          </select>
+        </div>
+      </div>
+      <div class="bio-row">
+        <div class="bio-field">
+          <label>Peuple</label>
+          <select data-field="system.biographie.peuple">
+            {{selectOptions peupleChoices selected=bio.peuple}}
+          </select>
+        </div>
+        <div class="bio-field"><label>Âge</label><input type="text" data-field="system.biographie.age" value="{{bio.age}}" /></div>
+        <div class="bio-field"><label>Taille</label><input type="text" data-field="system.biographie.taille" value="{{bio.taille}}" /></div>
+        <div class="bio-field"><label>Poids</label><input type="text" data-field="system.biographie.poids" value="{{bio.poids}}" /></div>
+        <div class="bio-field">
+          <label>Signe</label>
+          <select data-field="system.biographie.signe">
+            <option value="">—</option>
+            {{selectOptions signeChoices selected=bio.signe}}
+          </select>
+        </div>
+      </div>
+
+      {{#if peupleInfo}}
+      <div class="peuple-traits-row">
+        <span class="peuple-don" title="Don de peuple">🎁 {{peupleInfo.don}}</span>
+        <span class="peuple-sep">·</span>
+        <span class="peuple-destin" title="Destin du peuple">💠 Destin : {{peupleInfo.destin}}</span>
+      </div>
+      {{/if}}
+
+      <!-- Santé — ligne 1 : PV + repos -->
+      <div class="sante-row">
+
+        <div class="pv-block">
+          <label>Points de Vie <span class="pv-text">{{pvValue}} / {{pvMax}}</span></label>
+          <div class="pv-boxes">
+            {{#each pvRange as |n|}}
+              <span class="pv-box {{#if (lte n ../pvValue)}}active{{/if}}"
+                    data-action="pvClick" data-val="{{n}}"></span>
+            {{/each}}
+          </div>
+        </div>
+
+        <div class="repos-destin-block">
+          <div class="repos-buttons">
+            <button type="button" data-action="reposCourt" class="btn-repos" title="Repos court — +1 PV">💤 +1</button>
+            <button type="button" data-action="reposLong"  class="btn-repos" title="Nuit de repos — +2 PV">🌙 +2</button>
+          </div>
+          <div class="destin-mini">
+            <label>Destin</label>
+            <div class="destin-points">
+              {{#each destinRange as |n|}}
+                <span class="destin-point {{#if (lte n ../destinValue)}}active{{/if}}"
+                      data-action="destinClick" data-val="{{n}}">◆</span>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+
+        <div class="combat-block">
+          <div class="stat-box"><label>Armure</label><span>{{armure}}</span></div>
+          <div class="stat-box"><label>Dégâts</label><span>{{degats}}</span></div>
+          <button type="button" data-action="attaquer" class="btn-attaque">
+            <i class="fas fa-khanda"></i> Attaquer
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ ONGLETS ═══════════════════════════════════════ -->
+  <nav class="sheet-tabs">
+    {{#each tabs as |tab|}}
+    <a class="item {{#if tab.active}}active{{/if}}" data-tab="{{tab.id}}">
+      <i class="{{tab.icon}}"></i> {{tab.label}}
+    </a>
+    {{/each}}
+  </nav>
+
+  <section class="sheet-body">
+
+    <!-- ── TRAITS ──────────────────────────────────────── -->
+    <div class="tab {{#if (eq activeTab 'traits')}}active{{/if}}" data-tab="traits">
+      <div class="traits-grid">
+        {{#each traitsListe as |trait|}}
+        <div class="trait-row {{#if (eq trait.key ../classeInfo.traitCle)}}trait-cle-classe{{/if}}"
+             data-trait="{{trait.key}}">
+          <div class="trait-icon"><i class="{{trait.icon}}"></i></div>
+          <div class="trait-label">
+            {{trait.label}}
+          </div>
+          <div class="trait-stars">
+            {{#each (array 1 2 3 4 5) as |n|}}
+              <span class="etoile {{#if (lte n ../trait.valeur)}}active{{/if}}"
+                    data-val="{{n}}">★</span>
+            {{/each}}
+          </div>
+          <div class="trait-niveau">{{traitLabel trait.valeur}}</div>
+          <button type="button" class="btn-roll" data-action="traitRoll" data-trait="{{trait.key}}">
+            <i class="fas fa-dice"></i>
+          </button>
+        </div>
+        {{/each}}
+      </div>
+
+      <div class="traits-info">
+        <span class="total-traits {{#if (gte totalTraits 20)}}max{{/if}}">
+          Total traits : {{totalTraits}} / 20
+        </span>
+        {{#if classeInfo}}
+        <span class="classe-info">Trait clé : <strong>{{classeInfo.traitCle}}</strong> · {{classeInfo.aussi}}</span>
+        {{/if}}
+      </div>
+
+      <div class="reflexe-block">
+        <label><i class="fas fa-bolt"></i> Réflexe</label>
+        <input type="text" data-field="system.biographie.reflexe" value="{{bio.reflexe}}" placeholder="Action automatique..." />
+      </div>
+
+      <div class="langues-block">
+        <label><i class="fas fa-language"></i> Langues connues</label>
+        <div class="langues-list">
+          {{#each langues as |lang|}}
+          <label class="langue-check">
+            <input type="checkbox" name="system.langues.{{lang.key}}" {{#if lang.valeur}}checked{{/if}} />
+            {{lang.label}}
+          </label>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+    <!-- ── AVANTAGES & FAIBLESSES ────────────────────── -->
+    <div class="tab {{#if (eq activeTab 'avantages')}}active{{/if}}" data-tab="avantages">
+      <div class="items-section">
+        <div class="section-header">
+          <h3><i class="fas fa-star"></i> Avantages <span class="item-count">({{avantages.length}}/5)</span></h3>
+          <button type="button" class="item-create" data-action="itemCreate" data-type="avantage"><i class="fas fa-plus"></i></button>
+        </div>
+        <ul class="item-list">
+          {{#each avantages as |item|}}
+          <li class="item {{#if item.system.utilise}}utilise{{/if}}" data-item-id="{{item.id}}">
+            <span class="item-name">{{item.name}}</span>
+            <span class="item-score">Score {{item.system.score}}</span>
+            <div class="item-controls">
+              <button type="button" data-action="avantageUse" title="Utilisé">{{#if item.system.utilise}}✓{{else}}○{{/if}}</button>
+              <button type="button" data-action="itemEdit"><i class="fas fa-edit"></i></button>
+              <button type="button" data-action="itemDelete"><i class="fas fa-trash"></i></button>
+            </div>
+          </li>
+          {{/each}}
+        </ul>
+      </div>
+
+      <div class="items-section">
+        <div class="section-header">
+          <h3><i class="fas fa-skull-crossbones"></i> Faiblesses <span class="malus-info">(malus −4)</span></h3>
+          <button type="button" class="item-create" data-action="itemCreate" data-type="faiblesse"><i class="fas fa-plus"></i></button>
+        </div>
+        <ul class="item-list">
+          {{#each faiblesses as |item|}}
+          <li class="item faiblesse" data-item-id="{{item.id}}">
+            <span class="item-name">{{item.name}}</span>
+            <span class="item-desc">{{item.system.description}}</span>
+            <div class="item-controls">
+              <button type="button" data-action="itemEdit"><i class="fas fa-edit"></i></button>
+              <button type="button" data-action="itemDelete"><i class="fas fa-trash"></i></button>
+            </div>
+          </li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+
+    <!-- ── DONS ──────────────────────────────────────── -->
+    <div class="tab {{#if (eq activeTab 'dons')}}active{{/if}}" data-tab="dons">
+      <div class="section-header">
+        <h3><i class="fas fa-magic"></i> Dons <span class="item-count">({{dons.length}}/5)</span></h3>
+        <button type="button" class="item-create" data-action="itemCreate" data-type="don"><i class="fas fa-plus"></i></button>
+      </div>
+      {{#if peupleInfo}}
+      <div class="peuple-don"><i class="fas fa-shield-alt"></i> <strong>Don de peuple :</strong> {{peupleInfo.don}}</div>
+      {{/if}}
+      <ul class="item-list dons-list">
+        {{#each dons as |item|}}
+        <li class="item don" data-item-id="{{item.id}}">
+          <div class="don-header">
+            <span class="item-name">{{item.name}}</span>
+            <span class="don-classe">[{{item.system.classe_origine}}]</span>
+          </div>
+          <div class="don-description">{{item.system.description}}</div>
+          <div class="item-controls">
+            <button type="button" data-action="itemEdit"><i class="fas fa-edit"></i></button>
+            <button type="button" data-action="itemDelete"><i class="fas fa-trash"></i></button>
+          </div>
+        </li>
+        {{/each}}
+      </ul>
+
+      <div class="experience-block">
+        <h3><i class="fas fa-trophy"></i> Expérience</h3>
+        <label>XP <input type="number" data-field="system.experience" value="{{xp}}" min="0" /></label>
+        <div class="xp-table">
+          <span>+1 trait (classe) = 5 XP</span>
+          <span>+1 trait (hors classe) = 10 XP</span>
+          <span>Nouveau don = 10 XP</span>
+        </div>
+        <label>Points d'aventure <input type="number" data-field="system.points_aventure" value="{{pointsAventure}}" min="0" /></label>
+
+        <div class="nouvelle-partie-zone">
+          <button type="button" data-action="nouvellePartie" class="btn-nouvelle-partie">
+            🎲 Nouvelle partie
+          </button>
+          <small>Remet à zéro : avantages utilisés, besace, cartes jouées</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── BESACE ────────────────────────────────────── -->
+    <div class="tab {{#if (eq activeTab 'equipement')}}active{{/if}}" data-tab="equipement">
+      <div class="items-section">
+        <div class="section-header">
+          <h3><i class="fas fa-khanda"></i> Armes</h3>
+          <button type="button" class="item-create" data-action="itemCreate" data-type="arme"><i class="fas fa-plus"></i></button>
+        </div>
+        <ul class="item-list">
+          {{#each armes as |item|}}
+          <li class="item" data-item-id="{{item.id}}">
+            <span class="item-name">{{item.name}}</span>
+            {{#if item.system.bonus}}<span class="item-bonus">+{{item.system.bonus}}</span>{{/if}}
+            <span class="item-type">{{item.system.type}}</span>
+            <div class="item-controls">
+              <button type="button" data-action="itemEdit"><i class="fas fa-edit"></i></button>
+              <button type="button" data-action="itemDelete"><i class="fas fa-trash"></i></button>
+            </div>
+          </li>
+          {{/each}}
+        </ul>
+      </div>
+
+      <div class="items-section">
+        <div class="section-header">
+          <h3><i class="fas fa-backpack"></i> Besace</h3>
+          <button type="button" class="item-create" data-action="itemCreate" data-type="equipement"><i class="fas fa-plus"></i></button>
+        </div>
+        <ul class="item-list">
+          {{#each equipements as |item|}}
+          <li class="item" data-item-id="{{item.id}}">
+            <span class="item-name">{{item.name}}</span>
+            <span class="item-desc">{{item.system.description}}</span>
+            <div class="item-controls">
+              <button type="button" data-action="itemEdit"><i class="fas fa-edit"></i></button>
+              <button type="button" data-action="itemDelete"><i class="fas fa-trash"></i></button>
+            </div>
+          </li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+
+    <!-- ── BIOGRAPHIE ──────────────────────────────── -->
+    <div class="tab {{#if (eq activeTab 'biographie')}}active{{/if}}" data-tab="biographie">
+
+      <!-- Zone carte active -->
+      <div class="cartes-section">
+        <div class="cartes-header">
+          <h3><i class="fas fa-cards-blank"></i> Cartes événement
+            <span class="cartes-count">({{cartesEnMain.length}} en main)</span>
+          </h3>
+          {{#if (gte pointsAventure 1)}}
+          <button type="button" data-action="piocherCarte" class="btn-piocher">
+            🃏 Piocher ({{pointsAventure}} pt{{#if (gte pointsAventure 2)}}s{{/if}})
+          </button>
+          {{else}}
+          <button type="button" class="btn-piocher disabled" disabled title="Pas assez de points d'aventure">
+            🃏 Piocher (0 pt)
+          </button>
+          {{/if}}
+        </div>
+
+        {{#if carteActive}}
+        <div class="carte-active-zone">
+          <img src="systems/tranchons-et-traquons/assets/cartes/{{carteActive.fichier}}"
+               class="carte-active-img" title="{{carteActive.titre}}" />
+          <div class="carte-active-info">
+            <div class="carte-active-titre">{{carteActive.titre}}</div>
+            <div class="carte-active-effet">{{carteActive.effet}}</div>
+            <div class="carte-active-actions">
+              <button type="button" data-action="utiliserCarte" data-carte-id="{{carteActive.id}}"
+                      class="btn-utiliser-carte">⚡ Jouer cette carte</button>
+              <button type="button" data-action="defausserCarte" data-carte-id="{{carteActive.id}}"
+                      class="btn-defausser-carte">✕ Défausser</button>
+            </div>
+          </div>
+        </div>
+        {{/if}}
+
+        {{#if cartesEnMain.length}}
+        <div class="cartes-main">
+          {{#each cartesEnMain as |carte|}}
+          <div class="carte-miniature {{#if (eq carte.id ../carteActive.id)}}active{{/if}}"
+               data-action="voirCarte" data-carte-id="{{carte.id}}"
+               title="{{carte.titre}}">
+            <img src="systems/tranchons-et-traquons/assets/cartes/{{carte.fichier}}" />
+            <span class="carte-mini-titre">{{carte.titre}}</span>
+          </div>
+          {{/each}}
+        </div>
+        {{/if}}
+
+      </div>
+
+      <div class="bio-section">
+        <label>Réflexe</label>
+        <input type="text" data-field="system.biographie.reflexe" value="{{bio.reflexe}}" />
+      </div>
+      <div class="bio-section">
+        <label>Destin</label>
+        <input type="text" data-field="system.biographie.destin_type" value="{{bio.destin_type}}"
+               placeholder="{{#if peupleInfo}}{{peupleInfo.destin}}{{/if}}" />
+      </div>
+      <div class="bio-section">
+        <label>Description</label>
+        <textarea data-field="system.biographie.description" rows="4">{{bio.description}}</textarea>
+      </div>
+      <div class="bio-section">
+        <label>Notes</label>
+        <textarea data-field="system.biographie.notes" rows="5">{{bio.notes}}</textarea>
+      </div>
+    </div>
+
+  </section>
+</div>

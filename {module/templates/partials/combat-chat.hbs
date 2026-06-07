@@ -1,0 +1,99 @@
+<div class="tnt-combat-card {{#if succes}}succes{{else}}echec{{/if}} {{#if critiqueOk}}critique-ok{{/if}} {{#if critiqueKo}}critique-ko{{/if}}">
+
+  <!-- En-tête combattants -->
+  <div class="combat-header">
+    <div class="combattant attaquant">
+      <img src="{{attaquantImg}}" />
+      <span>{{attaquantName}}</span>
+    </div>
+    <div class="combat-vs">⚔</div>
+    {{#if cibleName}}
+    <div class="combattant cible">
+      <img src="{{cibleImg}}" />
+      <span>{{cibleName}}</span>
+    </div>
+    {{else}}
+    <div class="combattant cible vide"><span>— sans cible —</span></div>
+    {{/if}}
+  </div>
+
+  <!-- Dés et calcul -->
+  <div class="combat-calcul">
+    <div class="combat-des">
+      <span class="die {{#if critiqueOk}}max{{/if}} {{#if critiqueKo}}min{{/if}}">{{d1}}</span>
+      <span class="die {{#if critiqueOk}}max{{/if}} {{#if critiqueKo}}min{{/if}}">{{d2}}</span>
+      <span class="calcul-detail">+ {{combat}} (combat){{#if diffCible}} {{diffCible}} (diff.){{/if}} = <strong>{{total}}</strong> vs {{seuil}}</span>
+    </div>
+  </div>
+
+  <!-- Verdict -->
+  <div class="combat-verdict">
+    {{#if critiqueOk}}
+      <div class="verdict-label critique-ok-label">★ SUCCÈS CRITIQUE ! Dégâts × 2 ★</div>
+    {{else if critiqueKo}}
+      <div class="verdict-label critique-ko-label">☠ ÉCHEC CRITIQUE ! Dégâts reçus × 2 ☠</div>
+    {{else if succes}}
+      <div class="verdict-label succes-label">✔ Touché !</div>
+    {{else}}
+      <div class="verdict-label echec-label">✘ Raté !</div>
+    {{/if}}
+  </div>
+
+  <!-- Résultat des dégâts -->
+  <div class="combat-resultats">
+    {{#if succes}}
+      {{#if cibleName}}
+      <div class="degats-ligne succes-degats">
+        <span>💥 <strong>{{cibleName}}</strong> perd <strong>{{degatsAttaquant}} PV</strong></span>
+        {{#if pvCibleApres}}
+        <div class="pv-barre">
+          <div class="pv-fill" style="width: {{pv_pct pvCibleApres ciblePvMax}}%"></div>
+          <span class="pv-label">{{pvCibleApres}} / {{ciblePvMax}}</span>
+        </div>
+        {{/if}}
+      </div>
+      {{#if armureCible}}
+      <div class="armure-btn-zone">
+        <button class="tnt-btn-armure"
+          data-actor-id="{{cibleId}}"
+          data-attaquant-id="{{attaquantId}}"
+          data-degats="{{degatsAttaquant}}">
+          🛡 {{cibleName}} utilise son armure (annule {{degatsAttaquant}} dégâts — {{armureCible}} charge(s))
+        </button>
+      </div>
+      {{/if}}
+      {{/if}}
+    {{else}}
+      {{#if cibleName}}
+      <div class="degats-ligne echec-degats">
+        <span>💢 <strong>{{attaquantName}}</strong> perd <strong>{{degatsDefenseur}} PV</strong></span>
+        {{#if pvAttApres}}
+        <div class="pv-barre">
+          <div class="pv-fill echec" style="width: {{pv_pct pvAttApres attPvMax}}%"></div>
+          <span class="pv-label">{{pvAttApres}} / {{attPvMax}}</span>
+        </div>
+        {{/if}}
+      </div>
+      {{#if (gt (sub attPvMax (add pvAttApres degatsDefenseur)) -1)}}
+      <div class="armure-btn-zone">
+        <button class="tnt-btn-armure"
+          data-actor-id="{{attaquantId}}"
+          data-attaquant-id="{{cibleId}}"
+          data-degats="{{degatsDefenseur}}">
+          🛡 {{attaquantName}} utilise son armure (annule {{degatsDefenseur}} dégâts)
+        </button>
+      </div>
+      {{/if}}
+      {{/if}}
+    {{/if}}
+  </div>
+
+  <!-- Mort / KO -->
+  {{#if pvCibleApres}}{{#if (eq pvCibleApres 0)}}
+  <div class="combat-mort">⚰ {{cibleName}} tombe à 0 PV !</div>
+  {{/if}}{{/if}}
+  {{#if pvAttApres}}{{#if (eq pvAttApres 0)}}
+  <div class="combat-mort">⚰ {{attaquantName}} tombe à 0 PV !</div>
+  {{/if}}{{/if}}
+
+</div>

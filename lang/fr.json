@@ -1,0 +1,35 @@
+{
+  "TYPES": {
+    "Actor": {
+      "aventurier": "Aventurier",
+      "pnj": "PNJ"
+    },
+    "Item": {
+      "avantage": "Avantage",
+      "faiblesse": "Faiblesse",
+      "don": "Don",
+      "arme": "Arme",
+      "equipement": "Équipement"
+    }
+  },
+
+  "TnT.Actor.aventurier":    "Aventurier",
+  "TnT.Actor.pnj":           "PNJ / Monstre",
+  "TnT.Item.avantage":       "Avantage",
+  "TnT.Item.faiblesse":      "Faiblesse",
+  "TnT.Item.don":            "Don",
+  "TnT.Item.arme":           "Arme",
+  "TnT.Item.equipement":     "Équipement",
+  "TnT.Traits.adresse":      "Adresse",
+  "TnT.Traits.combat":       "Combat",
+  "TnT.Traits.erudition":    "Érudition",
+  "TnT.Traits.influence":    "Influence",
+  "TnT.Traits.robustesse":   "Robustesse",
+  "TnT.Traits.survie":       "Survie",
+  "TnT.Succes":              "Succès",
+  "TnT.Echec":               "Échec",
+  "TnT.PV":                  "Points de Vie",
+  "TnT.Destin":              "Destin",
+  "TnT.Armure":              "Armure",
+  "TnT.Degats":              "Dégâts"
+}

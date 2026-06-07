@@ -1,0 +1,325 @@
+<div class="tnt-wiki-app">
+
+  <!-- ══ NAVIGATION GAUCHE ══════════════════════════ -->
+  <nav class="wiki-nav">
+    <div class="wiki-nav-logo">
+      <img src="systems/tranchons-et-traquons/assets/logo.png" onerror="this.style.display='none'" />
+      <div class="wiki-nav-title">T&T</div>
+    </div>
+    {{#each sections as |s|}}
+    <a class="wiki-nav-item {{#if (eq s.id ../section)}}active{{/if}}"
+       data-action="navClick" data-section="{{s.id}}">
+      {{s.label}}
+    </a>
+    {{/each}}
+  </nav>
+
+  <!-- ══ CONTENU PRINCIPAL ══════════════════════════ -->
+  <main class="wiki-content">
+
+    {{!-- ACCUEIL --}}
+    {{#if (eq section "accueil")}}
+    <h1 class="wiki-titre">{{data.titre}}</h1>
+    <p class="wiki-intro">{{data.intro}}</p>
+    <div class="wiki-blocs">
+      {{#each data.blocs as |b|}}
+      <div class="wiki-bloc">
+        <div class="wiki-bloc-icone">{{b.icone}}</div>
+        <div class="wiki-bloc-titre">{{b.titre}}</div>
+        <div class="wiki-bloc-texte">{{b.texte}}</div>
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+
+    {{!-- DÉS --}}
+    {{#if (eq section "des")}}
+    <h1 class="wiki-titre">{{data.titre}}</h1>
+    <div class="wiki-formule">2D6 + Trait ≥ 8 = ✔ Succès</div>
+    <div class="wiki-table">
+      {{#each data.regles as |r|}}
+      <div class="wiki-row">
+        <div class="wiki-row-label">{{r.label}}</div>
+        <div class="wiki-row-texte">{{r.texte}}</div>
+      </div>
+      {{/each}}
+    </div>
+    <h2 class="wiki-sous-titre">Niveaux de difficulté</h2>
+    <table class="wiki-tableau">
+      <thead><tr><th>Difficulté</th><th>Modificateur</th></tr></thead>
+      <tbody>
+        {{#each data.difficultes as |d|}}
+        <tr><td>{{d.niveau}}</td><td class="wiki-td-center"><strong>{{d.modificateur}}</strong></td></tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{/if}}
+
+    {{!-- TRAITS --}}
+    {{#if (eq section "traits")}}
+    <h1 class="wiki-titre">{{data.titre}}</h1>
+    <p class="wiki-intro">{{data.intro}}</p>
+    <div class="wiki-traits-liste">
+      {{#each data.liste as |t|}}
+      <div class="wiki-trait-item">
+        <span class="wiki-trait-icone">{{t.icone}}</span>
+        <div class="wiki-trait-info">
+          <strong>{{t.nom}}</strong>
+          <span>{{t.desc}}</span>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    <h2 class="wiki-sous-titre">Niveaux</h2>
+    <div class="wiki-niveaux">
+      {{#each data.niveaux as |n|}}
+      <div class="wiki-niveau-item">
+        <span class="wiki-niveau-val">{{n.val}}</span>
+        <span class="wiki-niveau-label">{{n.label}}</span>
+      </div>
+      {{/each}}
+    </div>
+
+    <h2 class="wiki-sous-titre">⚡ Le Réflexe</h2>
+    <div class="wiki-encadre reflexe">
+      <p>{{data.reflexe.texte}}</p>
+      <p class="wiki-conseil-inline">{{data.reflexe.usage}}</p>
+    </div>
+
+    <h2 class="wiki-sous-titre">💠 Le Destin</h2>
+    <div class="wiki-encadre destin">
+      <p>{{data.destin.texte}}</p>
+      <p class="wiki-conseil-inline">{{data.destin.usage}}</p>
+    </div>
+    {{/if}}
+
+    {{!-- COMBAT --}}
+    {{#if (eq section "combat")}}
+    <h1 class="wiki-titre">{{data.titre}}</h1>
+
+    <div class="wiki-encadre" style="margin-bottom:14px">
+      <strong>⚡ Initiative</strong> — {{data.initiative}}
+    </div>
+
+    <p class="wiki-intro">{{data.intro}}</p>
+    {{#each data.phases as |p|}}
+    <div class="wiki-phase">
+      <div class="wiki-phase-titre">{{p.titre}}</div>
+      <div class="wiki-phase-texte">{{p.texte}}</div>
+    </div>
+    {{/each}}
+    <h2 class="wiki-sous-titre">Dégâts par score de Combat</h2>
+    <table class="wiki-tableau compact">
+      <thead><tr><th>Combat</th><th>Dégâts</th></tr></thead>
+      <tbody>
+        {{#each data.degats as |d|}}
+        <tr><td>{{d.combat}}</td><td class="wiki-td-center"><strong>{{d.degats}}</strong></td></tr>
+        {{/each}}
+      </tbody>
+    </table>
+    <div class="wiki-conseil">💡 {{data.conseil}}</div>
+    {{/if}}
+
+    {{!-- ARMURE --}}
+    {{#if (eq section "armure")}}
+    <h1 class="wiki-titre">{{data.titre}}</h1>
+    <p class="wiki-intro">{{data.intro}}</p>
+    <div class="wiki-table">
+      {{#each data.regles as |r|}}
+      <div class="wiki-row">
+        <div class="wiki-row-label">{{r.label}}</div>
+        <div class="wiki-row-texte">{{r.texte}}</div>
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+
+    {{!-- AVANTAGES --}}
+    {{#if (eq section "avantages")}}
+    <h1 class="wiki-titre">{{data.titre}}</h1>
+    <h2 class="wiki-sous-titre">⭐ Avantages</h2>
+    <p class="wiki-intro">{{data.avantages.intro}}</p>
+    <div class="wiki-table">
+      {{#each data.avantages.regles as |r|}}
+      <div class="wiki-row">
+        <div class="wiki-row-label">{{r.label}}</div>
+        <div class="wiki-row-texte">{{r.texte}}</div>
+      </div>
+      {{/each}}
+    </div>
+    <h3 class="wiki-sous-titre" style="font-size:0.95em">Exemples d'avantages (inventez les vôtres !)</h3>
+    <div class="wiki-exemples-grid">
+      {{#each data.avantages.exemples as |ex|}}
+      <div class="wiki-exemple-item">💬 {{ex.texte}}</div>
+      {{/each}}
+    </div>
+    <h2 class="wiki-sous-titre">💀 Faiblesses</h2>
+    <p class="wiki-intro">{{data.faiblesses.intro}}</p>
+    <div class="wiki-table">
+      {{#each data.faiblesses.regles as |r|}}
+      <div class="wiki-row">
+        <div class="wiki-row-label">{{r.label}}</div>
+        <div class="wiki-row-texte">{{r.texte}}</div>
+      </div>
+      {{/each}}
+    </div>
+    <h3 class="wiki-sous-titre" style="font-size:0.95em">Exemples de faiblesses</h3>
+    <div class="wiki-exemples-grid">
+      {{#each data.faiblesses.exemples as |ex|}}
+      <div class="wiki-exemple-item faiblesse">⚠ {{ex.texte}}</div>
+      {{/each}}
+    </div>
+    {{/if}}
+
+    {{!-- FAIBLESSES (section dédiée — même contenu) --}}
+    {{#if (eq section "faiblesses")}}
+    <h1 class="wiki-titre">Faiblesses</h1>
+    <p class="wiki-intro">{{data.faiblesses.intro}}</p>
+    <div class="wiki-table">
+      {{#each data.faiblesses.regles as |r|}}
+      <div class="wiki-row">
+        <div class="wiki-row-label">{{r.label}}</div>
+        <div class="wiki-row-texte">{{r.texte}}</div>
+      </div>
+      {{/each}}
+    </div>
+    <h3 class="wiki-sous-titre" style="font-size:0.95em">Exemples</h3>
+    <div class="wiki-exemples-grid">
+      {{#each data.faiblesses.exemples as |ex|}}
+      <div class="wiki-exemple-item faiblesse">⚠ {{ex.texte}}</div>
+      {{/each}}
+    </div>
+    {{/if}}
+
+    {{!-- PEUPLES --}}
+    {{#if (eq section "peuples")}}
+    <h1 class="wiki-titre">{{data.titre}}</h1>
+    <p class="wiki-intro">{{data.intro}}</p>
+    <p class="wiki-intro" style="font-style:italic">{{data.destins}}</p>
+    <div class="wiki-peuples-grid">
+      {{#each data.liste as |p|}}
+      <div class="wiki-peuple-card">
+        <div class="wiki-peuple-nom">{{p.nom}}</div>
+        <div class="wiki-peuple-don"><span class="wiki-don-label">Don :</span> {{p.don}}</div>
+        <div class="wiki-peuple-destin"><span class="wiki-destin-label">Destin :</span> {{p.destin}}</div>
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+
+    {{!-- CLASSES --}}
+    {{#if (eq section "classes")}}
+    <h1 class="wiki-titre">{{data.titre}}</h1>
+    <p class="wiki-intro">{{data.intro}}</p>
+    <div class="wiki-classes-liste">
+      {{#each data.liste as |c|}}
+      <div class="wiki-classe-card">
+        <div class="wiki-classe-nom">{{c.nom}}</div>
+        <div class="wiki-classe-trait">Trait clé : <strong>{{c.trait}}</strong></div>
+        <div class="wiki-classe-aussi">Aussi : {{c.aussi}}</div>
+        <div class="wiki-classe-faiblesse">⚠ {{c.faiblesse}}</div>
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+
+    {{!-- DONS --}}
+    {{#if (eq section "dons")}}
+    <h1 class="wiki-titre">{{data.titre}}</h1>
+    <p class="wiki-intro">{{data.intro}}</p>
+    {{#each data.classes as |cl|}}
+    <details class="wiki-dons-classe" open>
+      <summary>{{cl.icone}} {{cl.classe}}</summary>
+      <div class="wiki-dons-liste">
+        {{#each cl.dons as |d|}}
+        <div class="wiki-don-item">
+          <strong>{{d.nom}}</strong> — {{d.desc}}
+        </div>
+        {{/each}}
+      </div>
+    </details>
+    {{/each}}
+    {{/if}}
+
+    {{!-- MONSTRES --}}
+    {{#if (eq section "monstres")}}
+    <h1 class="wiki-titre">{{data.titre}}</h1>
+    <p class="wiki-intro">{{data.intro}}</p>
+    <table class="wiki-tableau">
+      <thead><tr><th>Niveau</th><th>Difficulté</th><th>Dégâts</th><th>PV</th><th>Dons</th></tr></thead>
+      <tbody>
+        {{#each data.niveaux as |n|}}
+        <tr>
+          <td><strong>{{n.nom}}</strong><br><small>{{n.desc}}</small></td>
+          <td class="wiki-td-center">{{n.diff}}</td>
+          <td class="wiki-td-center">{{n.degats}}</td>
+          <td class="wiki-td-center">{{n.pv}}</td>
+          <td class="wiki-td-center">{{n.dons}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    <h2 class="wiki-sous-titre">Dons des monstres</h2>
+    <div class="wiki-table">
+      {{#each data.dons as |d|}}
+      <div class="wiki-row">
+        <div class="wiki-row-label">{{d.nom}}</div>
+        <div class="wiki-row-texte">{{d.desc}}</div>
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+
+    {{!-- EXPÉRIENCE --}}
+    {{#if (eq section "experience")}}
+    <h1 class="wiki-titre">{{data.titre}}</h1>
+    <p class="wiki-intro">{{data.intro}}</p>
+    <div class="wiki-xp-options">
+      {{#each data.options as |o|}}
+      <div class="wiki-xp-option">
+        <div class="wiki-xp-icone">{{o.icone}}</div>
+        <div>
+          <strong>{{o.titre}}</strong>
+          <p>{{o.texte}}</p>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    <div class="wiki-conseil">🏆 {{data.fin}}</div>
+    <div class="wiki-table" style="margin-top:12px">
+      <div class="wiki-row"><div class="wiki-row-label">Avantages/Faiblesses</div><div class="wiki-row-texte">{{data.avantages}}</div></div>
+      <div class="wiki-row"><div class="wiki-row-label">Destin</div><div class="wiki-row-texte">{{data.destin}}</div></div>
+      <div class="wiki-row"><div class="wiki-row-label">🃏 Points d'aventure</div><div class="wiki-row-texte">{{data.points_aventure}}</div></div>
+    </div>
+    {{/if}}
+
+    {{!-- GUIDE FICHE --}}
+    {{#if (eq section "guide_fiche")}}
+    <h1 class="wiki-titre">{{data.titre}}</h1>
+    <p class="wiki-intro">{{data.intro}}</p>
+    <div class="wiki-guide-liste">
+      {{#each data.sections as |s|}}
+      <div class="wiki-guide-item">
+        <div class="wiki-guide-titre">{{s.titre}}</div>
+        <div class="wiki-guide-texte">{{s.texte}}</div>
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+
+    {{!-- GUIDE MJ --}}
+    {{#if (eq section "guide_mj")}}
+    <h1 class="wiki-titre">{{data.titre}}</h1>
+    <p class="wiki-intro">{{data.intro}}</p>
+    <div class="wiki-guide-liste">
+      {{#each data.sections as |s|}}
+      <div class="wiki-guide-item mj">
+        <div class="wiki-guide-titre">{{s.titre}}</div>
+        <div class="wiki-guide-texte">{{s.texte}}</div>
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+
+  </main>
+</div>
