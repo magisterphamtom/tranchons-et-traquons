@@ -9,12 +9,17 @@
   },
   "authors": [
     {
-      "name": "Kobayashi",
-      "url": "http://livresdelours.blogspot.com/"
+      "name": "magisterphamtom",
+      "url": "https://github.com/VOTRE-NOM",
+      "discord": ""
     }
   ],
-  "esmodules": ["tranchons.mjs"],
-  "styles": ["css/tranchons.css"],
+  "esmodules": [
+    "tranchons.mjs"
+  ],
+  "styles": [
+    "css/tranchons.css"
+  ],
   "languages": [
     {
       "lang": "fr",
@@ -24,19 +29,36 @@
   ],
   "documentTypes": {
     "Actor": {
-      "aventurier": { "label": "Aventurier" },
-      "pnj":        { "label": "PNJ" }
+      "aventurier": {
+        "label": "Aventurier"
+      },
+      "pnj": {
+        "label": "PNJ"
+      }
     },
     "Item": {
-      "avantage":   { "label": "Avantage" },
-      "faiblesse":  { "label": "Faiblesse" },
-      "don":        { "label": "Don" },
-      "arme":       { "label": "Arme" },
-      "equipement": { "label": "Équipement" }
+      "avantage": {
+        "label": "Avantage"
+      },
+      "faiblesse": {
+        "label": "Faiblesse"
+      },
+      "don": {
+        "label": "Don"
+      },
+      "arme": {
+        "label": "Arme"
+      },
+      "equipement": {
+        "label": "Équipement"
+      }
     }
   },
-  "url": "",
-  "manifest": "",
-  "download": "",
-  "license": "CC-BY-NC-SA-2.0"
+  "url": "https://github.com/VOTRE-NOM/tranchons-et-traquons",
+  "manifest": "https://raw.githubusercontent.com/VOTRE-NOM/tranchons-et-traquons/main/system.json",
+  "download": "https://github.com/VOTRE-NOM/tranchons-et-traquons/releases/latest/download/tranchons-et-traquons.zip",
+  "license": "MIT",
+  "readme": "https://raw.githubusercontent.com/VOTRE-NOM/tranchons-et-traquons/main/README.md",
+  "bugs": "https://github.com/VOTRE-NOM/tranchons-et-traquons/issues",
+  "changelog": "https://github.com/VOTRE-NOM/tranchons-et-traquons/releases"
 }
