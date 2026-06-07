@@ -2,15 +2,15 @@
   "id": "tranchons-et-traquons",
   "title": "Tranchons & Traquons",
   "description": "Système officiel pour Tranchons & Traquons de Kobayashi. Médiéval-fantastique old-school avec jets 2D6.",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "compatibility": {
     "minimum": "13",
     "verified": "13.351"
   },
   "authors": [
     {
-      "name": "magisterphamtom",
-      "url": "https://github.com/VOTRE-NOM",
+      "name": "VOTRE-NOM",
+      "url": "https://github.com/magisterphamtom",
       "discord": ""
     }
   ],
