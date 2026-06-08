@@ -21,7 +21,7 @@ A Foundry VTT game system for **Tranchons & Traquons** by Kobayashi. Requires Fo
 ### Option 2 — Manifest URL
 In Foundry VTT → Game Systems → Install System, paste:
 ```
-https://raw.githubusercontent.com/magisterphamtom/tranchons-et-traquons/main/system.json
+https://raw.githubusercontent.com/YOUR-NAME/tranchons-et-traquons/main/system.json
 ```
 
 ---

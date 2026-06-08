@@ -9,7 +9,7 @@
   },
   "authors": [
     {
-      "name": "VOTRE-NOM",
+      "name": "magisterphamtom",
       "url": "https://github.com/magisterphamtom",
       "discord": ""
     }
@@ -54,11 +54,17 @@
       }
     }
   },
-  "url": "https://github.com/VOTRE-NOM/tranchons-et-traquons",
-  "manifest": "https://raw.githubusercontent.com/VOTRE-NOM/tranchons-et-traquons/main/system.json",
-  "download": "https://github.com/VOTRE-NOM/tranchons-et-traquons/releases/latest/download/tranchons-et-traquons.zip",
+  "url": "https://github.com/magisterphamtom/tranchons-et-traquons",
+  "manifest": "https://raw.githubusercontent.com/magisterphamtom/tranchons-et-traquons/main/system.json",
+  "download": "https://github.com/magisterphamtom/tranchons-et-traquons/releases/latest/download/tranchons-et-traquons.zip",
   "license": "MIT",
-  "readme": "https://raw.githubusercontent.com/VOTRE-NOM/tranchons-et-traquons/main/README.md",
-  "bugs": "https://github.com/VOTRE-NOM/tranchons-et-traquons/issues",
-  "changelog": "https://github.com/VOTRE-NOM/tranchons-et-traquons/releases"
+  "readme": "https://raw.githubusercontent.com/magisterphamtom/tranchons-et-traquons/main/README.md",
+  "bugs": "https://github.com/magisterphamtom/tranchons-et-traquons/issues",
+  "changelog": "https://github.com/magisterphamtom/tranchons-et-traquons/releases",
+  "media": [
+    {
+      "type": "cover",
+      "url": "systems/tranchons-et-traquons/assets/banner.svg"
+    }
+  ]
 }
