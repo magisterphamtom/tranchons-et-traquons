@@ -1,0 +1,35 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Récupérer la version depuis le tag
+        id: version
+        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Construire le ZIP
+        run: |
+          zip -r tranchons-et-traquons.zip . \
+            -x ".git/*" \
+            -x ".github/*" \
+            -x "*.DS_Store"
+
+      - name: Publier la release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: v${{ steps.version.outputs.version }}
+          files: |
+            system.json
+            tranchons-et-traquons.zip
