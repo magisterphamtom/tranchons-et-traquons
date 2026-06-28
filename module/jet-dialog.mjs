@@ -20,7 +20,10 @@ export class TnTJetDialog extends HandlebarsApplicationMixin(ApplicationV2) {
   constructor(actor, traitKey, options = {}) {
     super(options);
     this._actor    = actor;
-    this._traitKey = traitKey;
+    // Normalisation : accepte une clé ("adresse") OU un objet trait ({ key, ... })
+    this._traitKey = (traitKey && typeof traitKey === "object")
+      ? (traitKey.key ?? traitKey.trait ?? "")
+      : String(traitKey ?? "");
     this._modif    = 0;      // difficulté sélectionnée
     this._libre    = 0;      // champ libre
     this._avId     = null;
@@ -160,20 +163,43 @@ export class TnTJetDialog extends HandlebarsApplicationMixin(ApplicationV2) {
       if (eq) await eq.update({ "system.utilise_partie": true });
     }
 
-    // Message de chat
-    const html = await foundry.applications.handlebars.renderTemplate(
-      "systems/tranchons-et-traquons/templates/partials/roll-chat.hbs",
-      {
-        actorName:  actor.name,
-        traitLabel,
-        valeur:     bonusTotal,
-        bonus:      0,
-        total, succes, critiqueOk, critiqueKo, marge, seuil,
-        dice: [d1, d2],
-        // Détail des bonus
-        details: this._buildDetails()
-      }
-    );
+    // Verdict
+    let verdict;
+    if (succes) {
+      verdict = `<span class="verdict succes-label">✔ Succès${marge >= 4 ? " éclatant !" : ""}</span>`;
+    } else {
+      verdict = `<span class="verdict echec-label">✘ Échec${marge <= -4 ? " critique !" : ""}</span>`;
+    }
+
+    // Dés
+    const dieHtml = [d1, d2].map(d => {
+      const cls = d === 6 ? "max" : (d === 1 ? "min" : "");
+      return `<span class="die die-${d} ${cls}">${d}</span>`;
+    }).join("");
+
+    const bonusHtml = bonusTotal ? `<span class="bonus">+ ${bonusTotal}</span>` : "";
+    const details   = this._buildDetails();
+    const detailsHtml = details ? `<div class="roll-details">${details}</div>` : "";
+
+    // Construction directe du HTML (pas de Handlebars : évite tout souci de rendu)
+    const nomActeur = String(actor.name ?? "");
+    const nomTrait  = String(traitLabel ?? "");
+    const html = `<div class="tnt-roll-card ${succes ? "succes" : "echec"}">
+  <div class="roll-header">
+    <span class="actor-name">${nomActeur}</span>
+    <span class="trait-name">— ${nomTrait}</span>
+  </div>
+  <div class="roll-dice">
+    ${dieHtml}
+    ${bonusHtml}
+  </div>
+  ${detailsHtml}
+  <div class="roll-result">
+    <span class="total">${total}</span>
+    <span class="vs">vs ${seuil}</span>
+    ${verdict}
+  </div>
+</div>`;
 
     await ChatMessage.create({
       speaker: ChatMessage.getSpeaker({ actor }),

@@ -38,7 +38,7 @@ export class TnTItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
 
     // Portrait cliquable
     html.querySelector(".item-img")?.addEventListener("click", () => {
-      new FilePicker({
+      new foundry.applications.apps.FilePicker.implementation({
         type: "image",
         current: this.item.img,
         callback: path => this.item.update({ img: path })

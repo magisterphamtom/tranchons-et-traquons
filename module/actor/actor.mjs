@@ -40,19 +40,45 @@ export class TnTActor extends Actor {
   }
 
   async lancerTrait(traitKey, options = {}) {
-    const traitLabel = CONFIG.TnT?.TRAITS?.[traitKey]?.label ?? traitKey;
-    const valeur     = this._getTraitValeur(traitKey);
+    // Normalisation : accepte une clé ("adresse") OU un objet trait ({ key, label, ... })
+    const tk = (traitKey && typeof traitKey === "object")
+      ? (traitKey.key ?? traitKey.trait ?? "")
+      : String(traitKey ?? "");
+    const traitLabel = String(CONFIG.TnT?.TRAITS?.[tk]?.label ?? tk);
+    const valeur     = this._getTraitValeur(tk);
     const bonus      = options.bonus ?? 0;
     const roll = new Roll(`2d6 + ${valeur} + ${bonus}`);
     await roll.evaluate();
     const total  = roll.total;
     const seuil  = CONFIG.TnT?.SEUIL ?? 8;
     const succes = total >= seuil;
-    const html = await foundry.applications.handlebars.renderTemplate(
-      "systems/tranchons-et-traquons/templates/partials/roll-chat.hbs",
-      { actorName: this.name, traitLabel, valeur, bonus, total, succes,
-        marge: total - seuil, seuil, dice: roll.dice[0].results.map(r => r.result) }
-    );
+    const marge  = total - seuil;
+    const dice   = roll.dice[0].results.map(r => r.result);
+
+    const dieHtml = dice.map(d => {
+      const cls = d === 6 ? "max" : (d === 1 ? "min" : "");
+      return `<span class="die die-${d} ${cls}">${d}</span>`;
+    }).join("");
+    const bonusHtml = valeur ? `<span class="bonus">+ ${valeur}</span>` : "";
+    const verdict = succes
+      ? `<span class="verdict succes-label">✔ Succès${marge >= 4 ? " éclatant !" : ""}</span>`
+      : `<span class="verdict echec-label">✘ Échec${marge <= -4 ? " critique !" : ""}</span>`;
+
+    const html = `<div class="tnt-roll-card ${succes ? "succes" : "echec"}">
+  <div class="roll-header">
+    <span class="actor-name">${String(this.name ?? "")}</span>
+    <span class="trait-name">— ${String(traitLabel ?? "")}</span>
+  </div>
+  <div class="roll-dice">
+    ${dieHtml}
+    ${bonusHtml}
+  </div>
+  <div class="roll-result">
+    <span class="total">${total}</span>
+    <span class="vs">vs ${seuil}</span>
+    ${verdict}
+  </div>
+</div>`;
     await ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor: this }), content: html, rolls: [roll] });
     return { roll, succes, total };
   }

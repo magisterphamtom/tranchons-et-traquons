@@ -791,6 +791,15 @@
   color: var(--tnt-gris);
 }
 
+.tnt-roll-card .roll-details {
+  font-size: 0.85em;
+  color: var(--tnt-gris);
+  font-style: italic;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed rgba(0,0,0,0.15);
+}
+
 .tnt-roll-card .roll-result {
   display: flex;
   align-items: center;

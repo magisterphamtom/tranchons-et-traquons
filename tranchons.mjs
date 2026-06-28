@@ -337,7 +337,7 @@ async function preloadHandlebarsTemplates() {
   const paths = [
     "systems/tranchons-et-traquons/templates/actor/aventurier-sheet.hbs",
     "systems/tranchons-et-traquons/templates/actor/pnj-sheet.hbs",
-    "systems/tranchons-et-traquons/templates/partials/roll-chat.hbs",
+    "systems/tranchons-et-traquons/templates/partials/roll-card.hbs",
     "systems/tranchons-et-traquons/templates/partials/combat-chat.hbs",
     "systems/tranchons-et-traquons/templates/item/item-sheet.hbs",
     "systems/tranchons-et-traquons/templates/wiki/wiki.hbs",

@@ -1,70 +1,70 @@
 {
-  "id": "tranchons-et-traquons",
-  "title": "Tranchons & Traquons",
-  "description": "Système officiel pour Tranchons & Traquons de Kobayashi. Médiéval-fantastique old-school avec jets 2D6.",
-  "version": "1.0.0",
-  "compatibility": {
-    "minimum": "13",
-    "verified": "13.351"
-  },
-  "authors": [
-    {
-      "name": "magisterphamtom",
-      "url": "https://github.com/magisterphamtom",
-      "discord": ""
-    }
-  ],
-  "esmodules": [
-    "tranchons.mjs"
-  ],
-  "styles": [
-    "css/tranchons.css"
-  ],
-  "languages": [
-    {
-      "lang": "fr",
-      "name": "Français",
-      "path": "lang/fr.json"
-    }
-  ],
-  "documentTypes": {
-    "Actor": {
-      "aventurier": {
-        "label": "Aventurier"
-      },
-      "pnj": {
-        "label": "PNJ"
-      }
+    "id": "tranchons-et-traquons",
+    "title": "Tranchons & Traquons",
+    "description": "Système officiel pour Tranchons & Traquons de Kobayashi. Médiéval-fantastique old-school avec jets 2D6.",
+    "version": "1.1.3",
+    "compatibility": {
+        "minimum": "13",
+        "verified": "14.364"
     },
-    "Item": {
-      "avantage": {
-        "label": "Avantage"
-      },
-      "faiblesse": {
-        "label": "Faiblesse"
-      },
-      "don": {
-        "label": "Don"
-      },
-      "arme": {
-        "label": "Arme"
-      },
-      "equipement": {
-        "label": "Équipement"
-      }
-    }
-  },
-  "url": "https://github.com/magisterphamtom/tranchons-et-traquons",
-  "manifest": "https://raw.githubusercontent.com/magisterphamtom/tranchons-et-traquons/main/system.json",
-  "download": "https://github.com/magisterphamtom/tranchons-et-traquons/releases/latest/download/tranchons-et-traquons.zip",
-  "license": "MIT",
-  "readme": "https://raw.githubusercontent.com/magisterphamtom/tranchons-et-traquons/main/README.md",
-  "bugs": "https://github.com/magisterphamtom/tranchons-et-traquons/issues",
-  "changelog": "https://github.com/magisterphamtom/tranchons-et-traquons/releases",
-  "media": [
-    {
-      "type": "cover",
-      "url": "systems/tranchons-et-traquons/assets/banner.svg"
-    }
-  ]
+    "authors": [
+        {
+            "name": "magisterphamtom",
+            "url": "https://github.com/magisterphamtom",
+            "discord": ""
+        }
+    ],
+    "esmodules": [
+        "tranchons.mjs"
+    ],
+    "styles": [
+        "css/tranchons.css"
+    ],
+    "languages": [
+        {
+            "lang": "fr",
+            "name": "Français",
+            "path": "lang/fr.json"
+        }
+    ],
+    "documentTypes": {
+        "Actor": {
+            "aventurier": {
+                "label": "Aventurier"
+            },
+            "pnj": {
+                "label": "PNJ"
+            }
+        },
+        "Item": {
+            "avantage": {
+                "label": "Avantage"
+            },
+            "faiblesse": {
+                "label": "Faiblesse"
+            },
+            "don": {
+                "label": "Don"
+            },
+            "arme": {
+                "label": "Arme"
+            },
+            "equipement": {
+                "label": "Équipement"
+            }
+        }
+    },
+    "url": "https://github.com/magisterphamtom/tranchons-et-traquons",
+    "manifest": "https://raw.githubusercontent.com/magisterphamtom/tranchons-et-traquons/main/system.json",
+    "download": "https://github.com/magisterphamtom/tranchons-et-traquons/releases/latest/download/tranchons-et-traquons.zip",
+    "license": "MIT",
+    "readme": "https://raw.githubusercontent.com/magisterphamtom/tranchons-et-traquons/main/README.md",
+    "bugs": "https://github.com/magisterphamtom/tranchons-et-traquons/issues",
+    "changelog": "https://github.com/magisterphamtom/tranchons-et-traquons/releases",
+    "media": [
+        {
+            "type": "cover",
+            "url": "systems/tranchons-et-traquons/assets/banner.svg"
+        }
+    ]
 }

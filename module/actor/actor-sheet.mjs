@@ -165,7 +165,7 @@ export class TnTActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
     // Portrait
     html.querySelector(".profile-img")?.addEventListener("click", () => {
-      new FilePicker({ type:"image", current:this.actor.img, callback: path => this.actor.update({ img: path }) }).browse();
+      new foundry.applications.apps.FilePicker.implementation({ type:"image", current:this.actor.img, callback: path => this.actor.update({ img: path }) }).browse();
     });
 
     // ── Étoiles — attachment différé (DOM pas encore prêt au moment du render) ──
