@@ -1,3 +1,5 @@
+<p align="center"><img src=".github/banner.png" alt="tranchons-et-traquons" width="100%"></p>
+
 # Tranchons & Traquons — Système Foundry VTT
 
 ![Foundry VTT](https://img.shields.io/badge/Foundry%20VTT-V13-orange)
