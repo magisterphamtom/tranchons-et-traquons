@@ -116,7 +116,9 @@ Hooks.on("drawToken", (token) => {
   _styliserBarreToken(token);
 });
 
-Hooks.on("refreshToken", (token) => {
+Hooks.on("refreshToken", (token, flags) => {
+  // Ne redessiner que lorsque Foundry redessine les barres (pas à chaque image d'un déplacement)
+  if (flags && !flags.refreshBars && !flags.redraw) return;
   _styliserBarreToken(token);
 });
 
